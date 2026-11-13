@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl" data-release="vGPT_1.0.0">
+<html lang="pl" data-release="vGPT_1.1.0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -8,10 +8,10 @@
   <meta name="description" content="Tablica przylotów Poznań-Ławica z odliczaniem i trybem offline.">
   <title>Ławica TAXI</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./assets/vGPT_1.0.0/icon-192.png" type="image/png">
-  <link rel="stylesheet" href="./assets/vGPT_1.0.0/style.css">
-  <script src="./assets/vGPT_1.0.0/install.js" defer></script>
-  <script type="module" src="./assets/vGPT_1.0.0/main.js"></script>
+  <link rel="icon" href="./assets/vGPT_1.1.0/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="./assets/vGPT_1.1.0/style.css">
+  <script src="./assets/vGPT_1.1.0/install.js" defer></script>
+  <script type="module" src="./assets/vGPT_1.1.0/main.js"></script>
 </head>
 <body>
   <header class="top">
@@ -32,6 +32,7 @@
       </div>
       <div class="overview-bottom">
         <dl class="timestamps">
+          <div><dt>Tryb danych</dt><dd id="source-mode">RĘCZNY</dd></div>
           <div><dt>Dane lotniska</dt><dd id="airport-time">—</dd></div>
           <div><dt>Publikacja arkusza</dt><dd id="published-time">—</dd></div>
           <div><dt>Synchronizacja</dt><dd id="synced-time">—</dd></div>
@@ -48,13 +49,33 @@
     </table>
     <div class="empty" id="empty" hidden></div>
     <p class="legend" id="legend" hidden><span aria-hidden="true">~</span> Czas szacunkowy</p>
-    <footer><button id="install" type="button" hidden>Zainstaluj aplikację</button><small>Ławica TAXI · <span id="release">vGPT_1.0.0</span></small></footer>
+    <footer><button id="install" type="button" hidden>Zainstaluj aplikację</button><small>Ławica TAXI · <span id="release">vGPT_1.1.0</span></small></footer>
   </main>
   <dialog id="settings" aria-labelledby="settings-title">
-    <form id="feed-form">
-      <h2 id="settings-title">Źródło danych</h2>
+    <h2 id="settings-title">Ustawienia</h2>
+    <section aria-labelledby="directions-title">
+      <h3 id="directions-title">KIERUNKI PRIORYTETOWE</h3>
+      <label for="direction-search">Szukaj kierunku</label>
+      <input id="direction-search" type="search" autocomplete="off" placeholder="Miasto lub kod lotniska">
+      <p id="direction-status" role="status" class="direction-status"></p>
+      <div id="directions" class="direction-list"></div>
+      <details>
+        <summary>Dodaj kierunek</summary>
+        <form id="direction-add">
+          <label for="direction-city">Miasto</label>
+          <input id="direction-city" required maxlength="75" autocomplete="off">
+          <label for="direction-airports">Kody IATA (opcjonalnie)</label>
+          <input id="direction-airports" maxlength="100" autocomplete="off" placeholder="np. CDG ORY">
+          <button type="submit" class="action" id="direction-add-button">Dodaj</button>
+        </form>
+      </details>
+    </section>
+    <form id="feed-form" class="feed-settings">
+      <h3>Źródło danych</h3>
       <label for="endpoint">Publiczny adres Apps Script (/exec)</label>
       <input id="endpoint" type="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="https://script.google.com/macros/s/…/exec">
+      <label for="direction-key">Klucz zapisu</label>
+      <input id="direction-key" type="password" autocomplete="new-password" autocapitalize="none" spellcheck="false" placeholder="Klucz wygenerowany w Arkuszu">
       <p id="feed-error" class="notice" role="alert" hidden></p>
       <div class="dialog-actions"><button type="button" id="close-settings">Anuluj</button><button type="submit" class="primary">Zapisz</button></div>
     </form>

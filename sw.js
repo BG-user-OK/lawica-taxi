@@ -1,11 +1,11 @@
-const RELEASE = 'vGPT_1.0.0';
+const RELEASE = 'vGPT_1.1.0';
 const PREFIX = 'bg-user-ok/lawica-taxi:shell:';
 const NAME = PREFIX + RELEASE;
 const BASE = new URL('./', self.location.href);
 const FILES = new Map([
   ['', /^text\/html/],
   ['manifest.webmanifest', /^(application\/(manifest\+)?json|text\/plain)/],
-  ...['board', 'main', 'demo', 'feed', 'install'].map(name => [`assets/${RELEASE}/${name}.js`, /javascript/]),
+  ...['board', 'main', 'demo', 'feed', 'install', 'directions'].map(name => [`assets/${RELEASE}/${name}.js`, /javascript/]),
   [`assets/${RELEASE}/style.css`, /^text\/css/],
   ...['192', '512', 'maskable'].map(name => [`assets/${RELEASE}/icon-${name}.png`, /^image\/png/])
 ]);
