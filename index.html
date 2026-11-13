@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pl" data-release="vGPT_1.0.0">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102a2d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="Tablica przylotów Poznań-Ławica z odliczaniem i trybem offline.">
+  <title>Ławica TAXI</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/vGPT_1.0.0/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="./assets/vGPT_1.0.0/style.css">
+  <script src="./assets/vGPT_1.0.0/install.js" defer></script>
+  <script type="module" src="./assets/vGPT_1.0.0/main.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap masthead">
+      <h1><span aria-hidden="true">✈</span> ŁAWICA – PRZYLOTY</h1>
+      <button class="settings" id="open-settings" type="button" aria-label="Ustawienia źródła" title="Ustawienia źródła">⚙</button>
+    </div>
+  </header>
+  <main class="wrap main">
+    <nav class="day-switch" aria-label="Doba lotnicza">
+      <button type="button" id="today" aria-pressed="true">DZIŚ</button>
+      <button type="button" id="tomorrow" aria-pressed="false">JUTRO</button>
+    </nav>
+    <section class="overview" aria-labelledby="range">
+      <div class="overview-top">
+        <div><div id="day-label" class="caption">Doba lotnicza · dziś</div><h2 id="range">—</h2></div>
+        <div class="now"><div class="caption">Czas telefonu</div><time id="clock">—</time></div>
+      </div>
+      <div class="overview-bottom">
+        <dl class="timestamps">
+          <div><dt>Dane lotniska</dt><dd id="airport-time">—</dd></div>
+          <div><dt>Publikacja arkusza</dt><dd id="published-time">—</dd></div>
+          <div><dt>Synchronizacja</dt><dd id="synced-time">—</dd></div>
+        </dl>
+        <button type="button" id="refresh" class="refresh" title="Pobierz opublikowane dane z arkusza">Odśwież dane</button>
+      </div>
+    </section>
+    <p class="notice" id="demo-banner" hidden>TEST DATA · Dane przykładowe</p>
+    <p class="notice" id="notice" role="status" hidden></p>
+    <table aria-label="Przyloty do Poznania">
+      <colgroup><col class="plan"><col class="countdown"><col class="city"><col class="status"></colgroup>
+      <thead><tr><th scope="col">Plan</th><th scope="col">Za ile / minęło</th><th scope="col">Kierunek</th><th scope="col">Status</th></tr></thead>
+      <tbody id="flights"></tbody>
+    </table>
+    <div class="empty" id="empty" hidden></div>
+    <p class="legend" id="legend" hidden><span aria-hidden="true">~</span> Czas szacunkowy</p>
+    <footer><button id="install" type="button" hidden>Zainstaluj aplikację</button><small>Ławica TAXI · <span id="release">vGPT_1.0.0</span></small></footer>
+  </main>
+  <dialog id="settings" aria-labelledby="settings-title">
+    <form id="feed-form">
+      <h2 id="settings-title">Źródło danych</h2>
+      <label for="endpoint">Publiczny adres Apps Script (/exec)</label>
+      <input id="endpoint" type="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="https://script.google.com/macros/s/…/exec">
+      <p id="feed-error" class="notice" role="alert" hidden></p>
+      <div class="dialog-actions"><button type="button" id="close-settings">Anuluj</button><button type="submit" class="primary">Zapisz</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
