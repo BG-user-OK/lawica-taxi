@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl" data-release="vGPT_1.1.0">
+<html lang="pl" data-release="vGPT_1.2.0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -8,16 +8,19 @@
   <meta name="description" content="Tablica przylotów Poznań-Ławica z odliczaniem i trybem offline.">
   <title>Ławica TAXI</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./assets/vGPT_1.1.0/icon-192.png" type="image/png">
-  <link rel="stylesheet" href="./assets/vGPT_1.1.0/style.css">
-  <script src="./assets/vGPT_1.1.0/install.js" defer></script>
-  <script type="module" src="./assets/vGPT_1.1.0/main.js"></script>
+  <link rel="icon" href="./assets/vGPT_1.2.0/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="./assets/vGPT_1.2.0/style.css">
+  <script src="./assets/vGPT_1.2.0/install.js" defer></script>
+  <script type="module" src="./assets/vGPT_1.2.0/main.js"></script>
 </head>
 <body>
   <header class="top">
     <div class="wrap masthead">
       <h1><span aria-hidden="true">✈</span> ŁAWICA – PRZYLOTY</h1>
-      <button class="settings" id="open-settings" type="button" aria-label="Ustawienia źródła" title="Ustawienia źródła">⚙</button>
+      <div class="header-actions">
+        <button class="settings directions-button" id="open-directions" type="button">Kierunki</button>
+        <button class="settings" id="open-settings" type="button" aria-label="Ustawienia źródła" title="Ustawienia źródła">⚙</button>
+      </div>
     </div>
   </header>
   <main class="wrap main">
@@ -37,7 +40,7 @@
           <div><dt>Publikacja arkusza</dt><dd id="published-time">—</dd></div>
           <div><dt>Synchronizacja</dt><dd id="synced-time">—</dd></div>
         </dl>
-        <button type="button" id="refresh" class="refresh" title="Pobierz opublikowane dane z arkusza">Odśwież dane</button>
+        <button type="button" id="refresh" class="refresh" title="Sprawdź najnowsze loty i kierunki w arkuszu">Odśwież dane</button>
       </div>
     </section>
     <p class="notice" id="demo-banner" hidden>TEST DATA · Dane przykładowe</p>
@@ -49,12 +52,12 @@
     </table>
     <div class="empty" id="empty" hidden></div>
     <p class="legend" id="legend" hidden><span aria-hidden="true">~</span> Czas szacunkowy</p>
-    <footer><button id="install" type="button" hidden>Zainstaluj aplikację</button><small>Ławica TAXI · <span id="release">vGPT_1.1.0</span></small></footer>
+    <footer><button id="install" type="button" hidden>Zainstaluj aplikację</button><small>Ławica TAXI · <span id="release">vGPT_1.2.0</span></small></footer>
   </main>
-  <dialog id="settings" aria-labelledby="settings-title">
-    <h2 id="settings-title">Ustawienia</h2>
-    <section aria-labelledby="directions-title">
-      <h3 id="directions-title">KIERUNKI PRIORYTETOWE</h3>
+  <dialog id="direction-screen" class="direction-screen" aria-labelledby="directions-title">
+    <div class="direction-page">
+      <button class="action" type="button" id="close-directions">← Wróć do tablicy</button>
+      <h2 id="directions-title">Kierunki z potencjałem</h2>
       <label for="direction-search">Szukaj kierunku</label>
       <input id="direction-search" type="search" autocomplete="off" placeholder="Miasto lub kod lotniska">
       <p id="direction-status" role="status" class="direction-status"></p>
@@ -69,7 +72,10 @@
           <button type="submit" class="action" id="direction-add-button">Dodaj</button>
         </form>
       </details>
-    </section>
+    </div>
+  </dialog>
+  <dialog id="settings" aria-labelledby="settings-title">
+    <h2 id="settings-title">Ustawienia</h2>
     <form id="feed-form" class="feed-settings">
       <h3>Źródło danych</h3>
       <label for="endpoint">Publiczny adres Apps Script (/exec)</label>

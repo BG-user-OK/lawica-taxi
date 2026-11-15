@@ -1,4 +1,4 @@
-const RELEASE = 'vGPT_1.1.0';
+const RELEASE = 'vGPT_1.2.0';
 const PREFIX = 'bg-user-ok/lawica-taxi:shell:';
 const NAME = PREFIX + RELEASE;
 const BASE = new URL('./', self.location.href);
